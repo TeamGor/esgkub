@@ -54,6 +54,6 @@ jobs:
         npm install
 
         echo "Starting/restarting application..."
-        next build
+        npm run build
         pm2 start npm --name "next" -- start
         '
