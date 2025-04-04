@@ -4,7 +4,7 @@ import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const Navbar = () => {
+export default function Navbar() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const isLoading = status === "loading";
@@ -12,19 +12,20 @@ const Navbar = () => {
   return (
     <nav className="flex justify-between items-center p-4 bg-gray-800 text-white">
       <div>
-        <Link href="/" className="text-xl font-bold">
-          Home
-        </Link>
+      <ul className="flex space-x-6">
+        <li><a href="#home" className="text-white hover:text-gray-400">Home</a></li>
+        <li><a href="#about" className="text-white hover:text-gray-400">About</a></li>
+        <li><a href="#services" className="text-white hover:text-gray-400">Services</a></li>
+        <li><a href="#contact" className="text-white hover:text-gray-400">Contact</a></li>
+      </ul>
       </div>
 
       <div className="flex items-center space-x-4">
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : session ? (
+        {session ? (
           <>
-            <span>Welcome, {session.user.name || session.user.username}</span>
+            <span>Welcome, {session.user?.username}</span>
             <button
-              onClick={() => signOut({ callbackUrl: "/" })}
+              onClick={() => signOut()}
               className="bg-red-500 px-4 py-2 rounded text-white"
             >
               Sign Out
@@ -49,6 +50,4 @@ const Navbar = () => {
       </div>
     </nav>
   );
-};
-
-export default Navbar;
+}
