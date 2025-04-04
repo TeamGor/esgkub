@@ -30,7 +30,7 @@ export async function POST(req: Request) {
     // Hash password
     const hashedPassword = await argon2.hash(password, {
       type: argon2.argon2id,
-      memoryCost: 65536, // Reduced for better performance
+      memoryCost: 65536,
       timeCost: 3,
     });
 
