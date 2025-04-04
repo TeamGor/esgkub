@@ -2,7 +2,10 @@ import { supabaseAdmin } from "@/lib/supabase";
 import * as argon2 from "argon2";
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST(
+  req: Request,
+  { params }: { params: Record<string, string | string[]> }
+) {
   try {
     const { name, email, password } = await req.json();
 
