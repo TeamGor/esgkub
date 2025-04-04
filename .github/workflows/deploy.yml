@@ -55,5 +55,5 @@ jobs:
 
         echo "Starting/restarting application..."
         pm2 start npm -- build
-        pm2 start npm -- dev
+        pm2 start npm -- start
         '
