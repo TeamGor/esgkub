@@ -38,7 +38,6 @@ export default function SignUp() {
         throw new Error(data.error || 'Registration failed');
       }
 
-      // Automatically sign in after successful registration
       const result = await signIn('credentials', {
         redirect: false,
         email,
@@ -60,21 +59,21 @@ export default function SignUp() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
-        <h2 className="mb-6 text-center text-3xl font-bold text-gray-900">
+    <div className="flex min-h-screen items-center justify-center bg-[#F1F1EF] px-4 py-8">
+      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
+        <h2 className="mb-6 text-center text-3xl font-bold text-[#0D3D03]">
           Create an Account
         </h2>
-        
+
         {error && (
-          <div className="mb-4 rounded-md bg-red-50 p-3 text-red-700">
+          <div className="mb-4 rounded-md bg-red-100 p-3 text-red-700">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-[#5C6D49]">
               Name
             </label>
             <input
@@ -82,12 +81,12 @@ export default function SignUp() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[#5C6D49] focus:outline-none focus:ring-[#5C6D49]"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-[#5C6D49]">
               Email
             </label>
             <input
@@ -95,12 +94,12 @@ export default function SignUp() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[#5C6D49] focus:outline-none focus:ring-[#5C6D49]"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-[#5C6D49]">
               Password
             </label>
             <input
@@ -108,12 +107,12 @@ export default function SignUp() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[#5C6D49] focus:outline-none focus:ring-[#5C6D49]"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-[#5C6D49]">
               Confirm Password
             </label>
             <input
@@ -121,7 +120,7 @@ export default function SignUp() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[#5C6D49] focus:outline-none focus:ring-[#5C6D49]"
             />
           </div>
 
@@ -129,18 +128,18 @@ export default function SignUp() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-blue-300"
+              className="w-full rounded-md bg-[#5C6D49] px-4 py-2 text-white hover:bg-[#0D3D03] focus:outline-none focus:ring-2 focus:ring-[#5C6D49] focus:ring-offset-2 disabled:bg-[#A3AB82]"
             >
               {isLoading ? 'Creating Account...' : 'Sign Up'}
             </button>
           </div>
         </form>
 
-        <p className="mt-6 text-center text-sm text-gray-600">
+        <p className="mt-6 text-center text-sm text-[#A3AB82]">
           Already have an account?{' '}
-          <Link 
-            href="/auth/login" 
-            className="font-medium text-blue-600 hover:text-blue-500"
+          <Link
+            href="/auth/login"
+            className="font-medium text-[#5C6D49] hover:text-[#0D3D03]"
           >
             Sign in
           </Link>
