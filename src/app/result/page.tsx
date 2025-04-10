@@ -21,13 +21,45 @@ import Image from "next/image";
 
 export default function ResultPage() {
   const [answers, setAnswers] = useState<any>({});
+  const { data: session } = useSession();
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const data = JSON.parse(localStorage.getItem("esgResult") || "{}");
-      setAnswers(data);
-    }
-  }, []);
+    const fetchAnswers = async () => {
+      if (session) {
+        try {
+          // Try to get answers from API
+          const response = await fetch('/api/questionnaire/get');
+          
+          if (response.ok) {
+            const data = await response.json();
+            if (data.answers) {
+              setAnswers(data.answers);
+            } else {
+              fallbackToLocalStorage();
+            }
+          } else {
+            console.error("Error fetching answers from API");
+            fallbackToLocalStorage();
+          }
+        } catch (err) {
+          console.error("Failed to fetch answers from API:", err);
+          fallbackToLocalStorage();
+        }
+      } else {
+        // No session, use localStorage
+        fallbackToLocalStorage();
+      }
+    };
+
+    const fallbackToLocalStorage = () => {
+      if (typeof window !== "undefined") {
+        const data = JSON.parse(localStorage.getItem("esgResult") || "{}");
+        setAnswers(data);
+      }
+    };
+
+    fetchAnswers();
+  }, [session]);
 
   const getSectionScore = (prefix: string, pageRange: number[]) => {
     const chartData: any[] = [];
@@ -79,7 +111,6 @@ export default function ResultPage() {
   const LOAN_RATE = totalESG / 100;
   const LOAN_LIMIT = Math.round(MAX_LIMIT * LOAN_RATE);
 
-  const { data: session } = useSession();
   const companyName = session?.user?.username || "Your Company";
 
   return (
