@@ -33,7 +33,7 @@ export default function Info() {
               ในแต่ละข้อประเมินผู้ทำแบบประเมินสามารถเลือกตอบได้มากกว่า 1 ตัวเลือก
             </p>
             <p className="mb-6 leading-relaxed text-white text-base sm:text-lg font-bold">
-              ** หลังทำแบบประเมินเสร็จ บริษัทจะทราบผลคะแนนการประเมินกู้เงินทันที
+              หลังทำแบบประเมินเสร็จ บริษัทจะทราบผลคะแนนการประเมินกู้เงินทันที
             </p>
 
             <div className="flex flex-wrap justify-between gap-4">
