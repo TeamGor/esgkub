@@ -11,18 +11,21 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
     
+    // Use maybeSingle() instead of single() to avoid error when no record exists
     const { data, error } = await supabase
       .from("QUESTIONNAIRE")
       .select("answer")
       .eq("id", session.user.id)
-      .single();
+      .maybeSingle();
 
-    if (error) {
+    // Only treat database errors as actual errors, not "not found" situations
+    if (error && error.code !== 'PGRST116') {  // PGRST116 is the "not found" error code
       console.error("Error fetching answers from Supabase:", error);
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
     
-    return NextResponse.json({ answers: data || null });
+    // Return empty answers object if no data found
+    return NextResponse.json({ answers: data?.answer || {} });
   } catch (error: any) {
     console.error("Error fetching questionnaire answers:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });

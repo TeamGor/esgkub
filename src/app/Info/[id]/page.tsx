@@ -92,14 +92,6 @@ function QuizPage({ id }: { id: string }) {
             if (data.answers && data.answers[id]) {
               setAnswers(data.answers[id]);
             }
-          } else {
-            // Fall back to localStorage if API call fails
-            const storedAllAnswers = JSON.parse(
-              localStorage.getItem("allAnswers") || "{}"
-            );
-            if (storedAllAnswers[id]) {
-              setAnswers(storedAllAnswers[id]);
-            }
           }
         } catch (err) {
           console.error("Failed to fetch answers:", err);
