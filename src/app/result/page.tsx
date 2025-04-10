@@ -111,7 +111,7 @@ export default function ResultPage() {
   const LOAN_RATE = totalESG / 100;
   const LOAN_LIMIT = Math.round(MAX_LIMIT * LOAN_RATE);
 
-  const companyName = session?.user?.username || "Your Company";
+  const companyName = session?.user.username || null;
 
   return (
     <main className="p-4 sm:p-6 md:p-8 space-y-6 max-w-7xl mx-auto">
@@ -127,7 +127,7 @@ export default function ResultPage() {
       </div>
 
       <section className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200 text-center">
-        <h1 className="text-xl sm:text-2xl font-bold text-green-900">Company Name : {companyName}</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-green-900">{companyName ? `${companyName}`: "Your Company" }</h1>
       </section>
 
       <section className="bg-white p-4 sm:p-6 rounded-lg shadow-md border border-gray-200 space-y-4">

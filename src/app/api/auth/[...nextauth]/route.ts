@@ -35,7 +35,6 @@ export const authOptions: AuthOptions = {
             name: user.entity_name,
             email: user.entity_email,
             username: user.entity_name,
-            companyName: user.company_name
           };
         }
         
@@ -51,7 +50,7 @@ export const authOptions: AuthOptions = {
         token.name = user.name;
         token.email = user.email;
         token.username = user.username;
-        token.companyName = user.companyName;
+        token.companyName = user.company_name;
       }
       return token;
     },
@@ -91,7 +90,7 @@ declare module "next-auth" {
     name?: string | null;
     email?: string | null;
     username: string;
-    companyName?: string | null;
+    company_name?: string | null;
   }
 }
 
