@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import {
   Radar,
   RadarChart,
@@ -27,14 +27,21 @@ export default function ResultPage() {
     const fetchAnswers = async () => {
       if (session) {
         try {
-          // Try to get answers from API
           const response = await fetch('/api/questionnaire/get');
           
           if (response.ok) {
             const data = await response.json();
+            console.log("API Response:", data); // Log the full response
+            
+            // Handle both API formats - either data.answers or just data itself might contain the answers
             if (data.answers) {
+              console.log("Using data.answers structure");
               setAnswers(data.answers);
+            } else if (typeof data === 'object') {
+              console.log("Using direct data structure");
+              setAnswers(data);
             } else {
+              console.log("No valid answers in data, using fallback");
               fallbackToLocalStorage();
             }
           } else {
@@ -60,6 +67,8 @@ export default function ResultPage() {
 
     fetchAnswers();
   }, [session]);
+
+  const { gScore, eScore, sScore, totalESG, LOAN_RATE, LOAN_LIMIT } = useMemo(() => {
 
   const getSectionScore = (prefix: string, pageRange: number[]) => {
     const chartData: any[] = [];
@@ -98,6 +107,11 @@ export default function ResultPage() {
   const eScore = getSectionScore("E", [11, 16]);
   const sScore = getSectionScore("S", [17, 26]);
   const totalESG = Math.round((gScore.total + eScore.total + sScore.total) / 3);
+  const MAX_LIMIT = 10_000_000;
+  const LOAN_RATE = totalESG / 100;
+  const LOAN_LIMIT = Math.round(MAX_LIMIT * LOAN_RATE);
+  return { gScore, eScore, sScore, totalESG, LOAN_RATE, LOAN_LIMIT };
+}, [answers])
 
   const getESGRating = (score: number) => {
     if (score >= 90) return "AAA";
@@ -106,10 +120,6 @@ export default function ResultPage() {
     if (score >= 50) return "BBB";
     return "Below BBB";
   };
-
-  const MAX_LIMIT = 10_000_000;
-  const LOAN_RATE = totalESG / 100;
-  const LOAN_LIMIT = Math.round(MAX_LIMIT * LOAN_RATE);
 
   const companyName = session?.user.username || null;
 

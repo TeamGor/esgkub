@@ -24,8 +24,9 @@ export async function GET() {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
     
-    // Return empty answers object if no data found
-    return NextResponse.json({ answers: data?.answer || {} });
+    // Return the answers directly from the nested structure to match what the frontend expects
+    console.log("Data from Supabase:", data);
+    return NextResponse.json(data?.answer || {});
   } catch (error: any) {
     console.error("Error fetching questionnaire answers:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
