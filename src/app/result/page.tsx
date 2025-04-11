@@ -145,7 +145,7 @@ export default function ResultPage() {
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
           <div>
             <p className="text-gray-600 mb-1">Maximum Limit</p>
-            <p className="text-xl font-extrabold text-green-800">฿10,000,000</p>
+            <p className="text-xl font-extrabold text-green-800">฿5,000,000</p>
           </div>
           <div>
             <p className="text-gray-600 mb-1">Loan Rate based on ESG Score</p>
