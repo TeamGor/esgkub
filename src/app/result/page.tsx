@@ -107,7 +107,7 @@ export default function ResultPage() {
   const eScore = getSectionScore("E", [11, 16]);
   const sScore = getSectionScore("S", [17, 26]);
   const totalESG = Math.round((gScore.total + eScore.total + sScore.total) / 3);
-  const MAX_LIMIT = 10_000_000;
+  const MAX_LIMIT = 5_000_000;
   const LOAN_RATE = totalESG / 100;
   const LOAN_LIMIT = Math.round(MAX_LIMIT * LOAN_RATE);
   return { gScore, eScore, sScore, totalESG, LOAN_RATE, LOAN_LIMIT };
